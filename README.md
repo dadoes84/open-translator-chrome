@@ -1,6 +1,7 @@
 # Open Translator — 使用说明
 
 基于 DeepSeek AI 的 Chrome 浏览器实时翻译插件。一键将网页全文翻译为指定语言，译文内嵌显示，支持双语对照与仅显示译文两种模式。
+制作初衷：沉浸式翻译的AI翻译要开通会员，于是用Reasonix+Deepseek做了个简化版，可自行绑定Deepseek API Key，密钥仅保存在本地，不会上传到任何第三方。
 
 ---
 
