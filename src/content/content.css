@@ -1,0 +1,40 @@
+/* Open Translator — content styles injected into every page */
+
+/* ── Translation spans ─────────────────────────── */
+.tr-orig {
+  /* Default: no extra styling — preserves original appearance */
+  margin-right: 0.6em;
+}
+
+.tr-trans {
+  /* Default: no extra styling */
+  /* Custom colors applied inline via JS from settings */
+}
+
+/* ── Display mode toggle ───────────────────────── */
+.tr-hide-original .tr-orig {
+  display: none;
+}
+
+/* ── Loading spinner ───────────────────────────── */
+.tr-loading {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ddd;
+  border-top-color: #4a90d9;
+  border-radius: 50%;
+  animation: tr-spin 0.8s linear infinite;
+  margin: 0 4px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+@keyframes tr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Page-level marker ─────────────────────────── */
+/* .tr-translated is added to <html> after the first full translation completes */

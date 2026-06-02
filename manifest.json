@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Open Translator",
+  "version": "1.0.0",
+  "description": "基于 DeepSeek AI 的网页实时翻译插件",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Open Translator"
+  },
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["https://api.deepseek.com/*"],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/shared/storage.js", "src/content/content.js"],
+      "css": ["src/content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "translate": {
+      "suggested_key": {
+        "default": "Alt+T"
+      },
+      "description": "翻译当前页面"
+    }
+  }
+}

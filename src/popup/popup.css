@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+/* ── Design tokens ──────────────────────────────── */
+:root {
+  --bg-primary:    #1A1A1D;
+  --bg-surface:    #222226;
+  --bg-elevated:   #2A2A30;
+  --border:        #32323A;
+  --border-focus:  #E6397C;
+  --text-primary:  #EDEDF0;
+  --text-secondary:#9D9DA4;
+  --text-muted:    #686872;
+  --accent:        #E6397C;
+  --accent-hover:  #C62E68;
+  --accent-shadow: rgba(230, 57, 124, 0.30);
+  --danger:        #E85D3A;
+  --danger-hover:  #CC4D2E;
+  --radius-sm:     6px;
+  --radius-md:     8px;
+  --radius-lg:     12px;
+  --transition:    200ms ease;
+}
+
+/* ── Reset & base ───────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 300px;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  letter-spacing: 0.01em;
+}
+
+#app {
+  padding: 14px;
+}
+
+/* ── Rows ───────────────────────────────────────── */
+.row {
+  margin-bottom: 10px;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Language row ───────────────────────────────── */
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-row .select {
+  flex: 1;
+}
+
+.lang-row .arrow {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* ── Select ─────────────────────────────────────── */
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 7px 28px 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239D9DA4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.select:hover {
+  border-color: var(--border-focus);
+}
+
+.select:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(230, 57, 124, 0.15);
+}
+
+.select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ── Buttons ────────────────────────────────────── */
+.btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Toggle button (secondary) ──────────────────── */
+.btn-toggle {
+  flex: 0 0 auto;
+  min-width: 78px;
+  background: var(--bg-surface);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+.btn-toggle:hover {
+  background: var(--bg-elevated);
+  border-color: #4A4A55;
+  color: var(--text-primary);
+}
+
+/* ── Translate button (primary accent) ──────────── */
+.btn-translate {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 12px var(--accent-shadow);
+}
+
+.btn-translate:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 18px var(--accent-shadow);
+}
+
+.btn-translate:focus-visible {
+  box-shadow:
+    0 0 0 3px rgba(230, 57, 124, 0.25),
+    0 2px 12px var(--accent-shadow);
+}
+
+/* Cancel state — toggled via JS adding .btn-cancel */
+.btn-translate.btn-cancel {
+  background: var(--danger);
+  box-shadow: 0 2px 12px rgba(232, 93, 58, 0.30);
+}
+
+.btn-translate.btn-cancel:hover {
+  background: var(--danger-hover);
+  box-shadow: 0 4px 18px rgba(232, 93, 58, 0.35);
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-settings {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
+  transition: color var(--transition), background var(--transition);
+}
+
+.btn-settings:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.version {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div id="options-app">
+    <div class="title-row">
+      <img src="../../icons/icon-48.png" alt="" class="title-icon" width="32" height="32">
+      <h2>Open Translator - 设置</h2>
+    </div>
+
+    <!-- API Section -->
+    <section class="section">
+      <h3 class="section-title">DeepSeek API</h3>
+
+      <div class="form-group">
+        <label for="api-key">API Key</label>
+        <input type="password" id="api-key" class="input" placeholder="sk-..." autocomplete="off">
+        <span class="hint">密钥仅保存在本地，不会上传到任何第三方</span>
+      </div>
+
+      <div class="form-group">
+        <label>模型推理模式</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="model" value="deepseek-chat">
+            Flash (deepseek-chat) — 速度快，成本低
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="model" value="deepseek-reasoner">
+            Pro (deepseek-reasoner) — 推理强，翻译更准确
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="prompt">翻译 Prompt</label>
+        <textarea id="prompt" class="input textarea" rows="4"
+          placeholder="自定义系统提示词，可用 ${sourceLang} ${targetLang} 占位"></textarea>
+        <span class="hint">占位符：<code>${sourceLang}</code> <code>${targetLang}</code></span>
+      </div>
+    </section>
+
+    <!-- Style Section -->
+    <section class="section">
+      <h3 class="section-title">译文样式</h3>
+
+      <div class="form-group">
+        <div class="switch-row">
+          <label class="switch-label">
+            <input type="checkbox" id="color-enabled" class="switch-input">
+            <span class="switch-track"></span>
+            启用自定义文字颜色
+          </label>
+          <input type="color" id="trans-color" class="color-input" disabled>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="switch-row">
+          <label class="switch-label">
+            <input type="checkbox" id="bg-enabled" class="switch-input">
+            <span class="switch-track"></span>
+            启用自定义背景颜色
+          </label>
+          <input type="color" id="trans-bg" class="color-input" disabled>
+        </div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button id="save-btn" class="btn btn-primary">保存设置</button>
+      <button id="reset-btn" class="btn btn-danger">恢复默认值</button>
+    </div>
+
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="../shared/storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
