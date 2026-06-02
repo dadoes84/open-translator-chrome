@@ -69,7 +69,7 @@
       }
 
       // Phase 1: Walk DOM, collect text segments
-      const segments = extractTextSegments();
+      const segments = extractTextSegments(settings.targetLang);
       if (segments.length === 0) {
         console.log('[Open Translator] No translatable text found');
         return;
@@ -154,8 +154,41 @@
     return groups;
   }
 
+  // ── Language detection ─────────────────────────────
+  // Return true if the text appears to already be in the target language,
+  // so we can skip it and save API calls.
+  function isAlreadyTargetLanguage(text, targetLang) {
+    // auto-detect: can't skip anything
+    if (targetLang === 'auto') return false;
+
+    // Strip whitespace, digits, punctuation, symbols — keep only letters & scripts
+    const meaningful = text.replace(/[\s\d\p{P}\p{S}]/gu, '');
+    if (meaningful.length === 0) return false;
+
+    let ratio;
+    switch (targetLang) {
+      case 'zh':
+        ratio = (meaningful.match(/[\u4E00-\u9FFF\u3400-\u4DBF]/g) || []).length / meaningful.length;
+        return ratio > 0.5;
+      case 'en':
+        ratio = (meaningful.match(/[A-Za-z]/g) || []).length / meaningful.length;
+        return ratio > 0.7;
+      case 'ja':
+        ratio = (meaningful.match(/[\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF]/g) || []).length / meaningful.length;
+        return ratio > 0.5;
+      case 'ko':
+        ratio = (meaningful.match(/[\uAC00-\uD7AF\u1100-\u11FF]/g) || []).length / meaningful.length;
+        return ratio > 0.5;
+      case 'ru':
+        ratio = (meaningful.match(/[\u0400-\u04FF]/g) || []).length / meaningful.length;
+        return ratio > 0.5;
+      default:
+        return false;
+    }
+  }
+
   // ── Text extraction ───────────────────────────────
-  function extractTextSegments() {
+  function extractTextSegments(targetLang) {
     const segments = [];
     const walker = document.createTreeWalker(
       document.body,
@@ -191,9 +224,13 @@
     // from being translated as independent fragments.
     const groups = groupTextNodes(textNodes);
 
-    // Replace the first node of each group; remove the rest
+    // Replace the first node of each group; remove the rest.
+    // Skip groups that are already in the target language.
     for (let g = 0; g < groups.length; g++) {
       const group = groups[g];
+
+      if (isAlreadyTargetLanguage(group.text, targetLang)) continue;
+
       const id = nextId++;
 
       const origSpan = document.createElement('span');
